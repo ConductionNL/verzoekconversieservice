@@ -48,16 +48,7 @@ class ConversionService
             $request->setMessage('Verzoek omgezet naar zaak');
 
             $this->commonGroundService->setHeader('Authorization',$this->params->get('app_application_key'));
-            array_push($requestData['cases'], $request->getMessage());
-            $this->commonGroundService->updateResource($requestData, ['component'=>'vrc','type'=>'requests','id'=>$requestData['id']]);
 
-            $token = [];
-            $token['name'] = 'Zaak';
-            $token['description'] = 'Verzoek omzetten naar een zaak';
-            $token['reference'] = $this->params->get('app_name');
-            $token['status'] = $request->getStatus();
-            $token['message'] = $request->getMessage();
-            $token['resource'] = $case['url'];
 
         }catch(HttpException $exception){
             $request->setMessage($exception->getMessage());
@@ -67,14 +58,42 @@ class ConversionService
             $token['code'] = $this->params->get('app_name');
             $token['status'] = $request->getStatus();
             $token['message'] = $request->getMessage();
-//            $token['uri'] = ;
+
+            $this->commonGroundService->setHeader('Authorization',$this->params->get('app_application_key'));
+
+            $this->commonGroundService->createResource($token, ['component'=>'trc','type'=>'tokens']);
+
+            return $request;
         }
 
-        $this->commonGroundService->setHeader('Authorization',$this->params->get('app_application_key'));
+        try{
+            array_push($requestData['cases'], $request->getMessage());
+
+            unset($requestData['submitters']);
+            unset($requestData['roles']);
+            unset($requestData['labels']);
+            $this->commonGroundService->updateResource($requestData, ['component'=>'vrc','type'=>'requests','id'=>$requestData['id']]);
+
+            $token = [];
+            $token['name'] = 'Zaak';
+            $token['description'] = 'Verzoek omzetten naar een zaak';
+            $token['reference'] = $this->params->get('app_name');
+            $token['status'] = $request->getStatus();
+            $token['message'] = $request->getMessage();
+            $token['resource'] = $case['url'];
+        }catch(HttpException $exception){
+            $request->setMessage($exception->getMessage());
+            $request->setStatus('FAILED');
+            $token = [];
+            $token['code'] = $this->params->get('app_name');
+            $token['status'] = $request->getStatus();
+            $token['message'] = $request->getMessage();
+        }
 
         $this->commonGroundService->createResource($token, ['component'=>'trc','type'=>'tokens']);
 
         return $request;
+
 
     }
     public function getJwtToken(){
