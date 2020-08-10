@@ -8,7 +8,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Repository\RequestRepository;
+use App\Repository\RequestConversionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;;
@@ -43,7 +43,7 @@ use Conduction\CommonGroundBundle\Entity\ChangeLog;
  *          }
  * 		},
  * )
- * @ORM\Entity(repositoryClass="App\Repository\RequestRepository")
+ * @ORM\Entity(repositoryClass="RequestConversionRepository")
  * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
  * @ApiFilter(BooleanFilter::class)
@@ -51,7 +51,7 @@ use Conduction\CommonGroundBundle\Entity\ChangeLog;
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
  * @ApiFilter(SearchFilter::class)
  */
-class Request
+class RequestConversion
 {
     /**
      * @var UuidInterface The UUID identifier of this resource

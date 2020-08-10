@@ -1,7 +1,7 @@
 <?php
 namespace App\Service;
 
-use App\Entity\Request;
+use App\Entity\RequestConversion;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use DateTime;
 use Jose\Component\Core\AlgorithmManager;
@@ -25,7 +25,7 @@ class ConversionService
         $this->params = $params;
     }
 
-    public function convert(Request $request){
+    public function convert(RequestConversion $request){
         $requestData = $this->commonGroundService->getResource($request->getRequest());
 
         $requestType = $this->commonGroundService->getResource($requestData['requestType']);

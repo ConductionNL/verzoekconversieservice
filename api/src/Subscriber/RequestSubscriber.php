@@ -4,7 +4,7 @@ namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Component;
-use App\Entity\Request;
+use App\Entity\RequestConversion;
 use App\Service\ConversionService;
 use App\Service\InstallService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -69,26 +69,10 @@ class RequestSubscriber implements EventSubscriberInterface
                 $renderType = 'json';
         }
 
-        if($resource instanceof Request){
+        if($resource instanceof RequestConversion){
             $resource = $this->conversionService->convert($resource);
         }
         $this->em->persist($resource);
         $this->em->flush();
-
-        $response = $this->serializer->serialize(
-            $resource,
-            'json',
-            ['enable_max_depth'=> true]
-        );
-
-        // Creating a response
-
-        $response = new Response(
-            $response,
-            Response::HTTP_OK,
-            ['content-type' => $contentType]
-        );
-
-        $event->setResponse($response);
     }
 }

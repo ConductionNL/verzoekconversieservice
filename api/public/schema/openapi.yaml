@@ -1945,9 +1945,9 @@ paths:
   '/request/{id}/audit_trail':
     get:
       tags:
-        - Request
-      operationId: get_audit_trailRequestItem
-      summary: 'Retrieves a Request resource.'
+        - RequestConversion
+      operationId: get_audit_trailRequestConversionItem
+      summary: 'Retrieves a RequestConversion resource.'
       parameters:
         -
           name: id
@@ -2028,47 +2028,47 @@ paths:
           in: query
       responses:
         200:
-          description: 'Request resource response'
+          description: 'RequestConversion resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
         404:
           description: 'Resource not found'
       produces:
@@ -2076,9 +2076,9 @@ paths:
   '/request/{id}/change_log':
     get:
       tags:
-        - Request
-      operationId: get_change_logsRequestItem
-      summary: 'Retrieves a Request resource.'
+        - RequestConversion
+      operationId: get_change_logsRequestConversionItem
+      summary: 'Retrieves a RequestConversion resource.'
       parameters:
         -
           name: id
@@ -2159,66 +2159,66 @@ paths:
           in: query
       responses:
         200:
-          description: 'Request resource response'
+          description: 'RequestConversion resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
         404:
           description: 'Resource not found'
       produces:
         - application/health+json
-  /requests:
+  /request_conversions:
     get:
       tags:
-        - Request
-      operationId: getRequestCollection
-      summary: 'Retrieves the collection of Request resources.'
+        - RequestConversion
+      operationId: getRequestConversionCollection
+      summary: 'Retrieves the collection of RequestConversion resources.'
       responses:
         200:
-          description: 'Request collection response'
+          description: 'RequestConversion collection response'
           content:
             application/ld+json:
               schema:
                 type: object
                 properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Request:jsonld-read' } }
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/RequestConversion:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
                   'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
@@ -2228,7 +2228,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Request:jsonld-read' } }
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/RequestConversion:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
                   'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
@@ -2238,57 +2238,57 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             application/json+hal:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             application/vnd.api+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             application/json+vnd.api:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             application/health+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             application/json+health:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             application/x-yaml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             text/csv:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
             text/html:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Request-read'
+                  $ref: '#/components/schemas/RequestConversion-read'
       parameters:
         -
           name: 'order[id]'
@@ -2457,58 +2457,58 @@ paths:
         - application/health+json
     post:
       tags:
-        - Request
-      operationId: postRequestCollection
-      summary: 'Creates a Request resource.'
+        - RequestConversion
+      operationId: postRequestConversionCollection
+      summary: 'Creates a RequestConversion resource.'
       responses:
         201:
-          description: 'Request resource created'
+          description: 'RequestConversion resource created'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
           links:
-            GetRequestItem:
+            GetRequestConversionItem:
               parameters:
                 id: '$response.body#/id'
-              operationId: getRequestItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /requests/{id}`.'
+              operationId: getRequestConversionItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /request_conversions/{id}`.'
         400:
           description: 'Invalid input'
         404:
@@ -2517,44 +2517,44 @@ paths:
         content:
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Request:jsonld-write'
+              $ref: '#/components/schemas/RequestConversion:jsonld-write'
           application/json+ld:
             schema:
-              $ref: '#/components/schemas/Request:jsonld-write'
+              $ref: '#/components/schemas/RequestConversion:jsonld-write'
           application/hal+json:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/json+hal:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/json+vnd.api:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/json:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/health+json:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/json+health:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           text/csv:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           text/html:
             schema:
-              $ref: '#/components/schemas/Request-write'
-        description: 'The new Request resource'
+              $ref: '#/components/schemas/RequestConversion-write'
+        description: 'The new RequestConversion resource'
       parameters:
         -
           name: Authorization
@@ -2585,12 +2585,12 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
-  '/requests/{id}':
+  '/request_conversions/{id}':
     get:
       tags:
-        - Request
-      operationId: getRequestItem
-      summary: 'Retrieves a Request resource.'
+        - RequestConversion
+      operationId: getRequestConversionItem
+      summary: 'Retrieves a RequestConversion resource.'
       parameters:
         -
           name: id
@@ -2671,56 +2671,56 @@ paths:
           in: query
       responses:
         200:
-          description: 'Request resource response'
+          description: 'RequestConversion resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
         404:
           description: 'Resource not found'
       produces:
         - application/health+json
     put:
       tags:
-        - Request
-      operationId: putRequestItem
-      summary: 'Replaces the Request resource.'
+        - RequestConversion
+      operationId: putRequestConversionItem
+      summary: 'Replaces the RequestConversion resource.'
       parameters:
         -
           name: id
@@ -2759,47 +2759,47 @@ paths:
           in: header
       responses:
         200:
-          description: 'Request resource updated'
+          description: 'RequestConversion resource updated'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Request:jsonld-read'
+                $ref: '#/components/schemas/RequestConversion:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Request-read'
+                $ref: '#/components/schemas/RequestConversion-read'
         400:
           description: 'Invalid input'
         404:
@@ -2808,52 +2808,52 @@ paths:
         content:
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Request:jsonld-write'
+              $ref: '#/components/schemas/RequestConversion:jsonld-write'
           application/json+ld:
             schema:
-              $ref: '#/components/schemas/Request:jsonld-write'
+              $ref: '#/components/schemas/RequestConversion:jsonld-write'
           application/hal+json:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/json+hal:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/json+vnd.api:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/json:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/health+json:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/json+health:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           text/csv:
             schema:
-              $ref: '#/components/schemas/Request-write'
+              $ref: '#/components/schemas/RequestConversion-write'
           text/html:
             schema:
-              $ref: '#/components/schemas/Request-write'
-        description: 'The updated Request resource'
+              $ref: '#/components/schemas/RequestConversion-write'
+        description: 'The updated RequestConversion resource'
     delete:
       tags:
-        - Request
-      operationId: deleteRequestItem
-      summary: 'Removes the Request resource.'
+        - RequestConversion
+      operationId: deleteRequestConversionItem
+      summary: 'Removes the RequestConversion resource.'
       responses:
         204:
-          description: 'Request resource deleted'
+          description: 'RequestConversion resource deleted'
         404:
           description: 'Resource not found'
       parameters:
@@ -3272,7 +3272,7 @@ components:
         '@type':
           readOnly: true
           type: string
-    Request-read:
+    RequestConversion-read:
       type: object
       description: ''
       properties:
@@ -3296,7 +3296,7 @@ components:
           description: 'The status that is logged to the token component **OK or FAILED**'
           type: string
           nullable: true
-    Request-write:
+    RequestConversion-write:
       type: object
       description: ''
       properties:
@@ -3305,7 +3305,7 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-    'Request:jsonld-read':
+    'RequestConversion:jsonld-read':
       type: object
       description: ''
       properties:
@@ -3338,7 +3338,7 @@ components:
           description: 'The status that is logged to the token component **OK or FAILED**'
           type: string
           nullable: true
-    'Request:jsonld-write':
+    'RequestConversion:jsonld-write':
       type: object
       description: ''
       properties:
@@ -3357,7 +3357,7 @@ components:
             url: 'http://schema.org/url'
           type: string
 definitions:
-  Request-read:
+  RequestConversion-read:
     properties:
       id:
         description: 'The UUID identifier of this resource'
@@ -3370,59 +3370,6 @@ definitions:
       status:
         description: 'The status that is logged to the token component **OK or FAILED**'
         type: string
-    required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-08-07 09:16:15'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-08-07 09:16:15'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
     required: []
   AuditTrail-read:
     properties:
@@ -3528,12 +3475,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-07 09:16:15'
+        example: '2020-08-10 08:05:59'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-07 09:16:15'
+        example: '2020-08-10 08:05:59'
     required: []
   AuditTrail-write:
     properties:
@@ -3543,21 +3490,74 @@ definitions:
         example: 'This log line looks suspicius'
         maxLength: 2555
     required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-08-10 08:05:59'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-08-10 08:05:59'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
 tags:
   -
-    name: Request
+    name: RequestConversion
     description: |
       
       
       
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -3568,15 +3568,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
