@@ -26,7 +26,7 @@ use Conduction\CommonGroundBundle\Entity\ChangeLog;
  * 	    "put",
  * 	   "delete",
  *     "get_change_logs"={
- *              "path"="/request/{id}/change_log",
+ *              "path"="/request_conversions/{id}/change_log",
  *              "method"="get",
  *              "swagger_context" = {
  *                  "summary"="Changelogs",
@@ -34,7 +34,7 @@ use Conduction\CommonGroundBundle\Entity\ChangeLog;
  *              }
  *          },
  *     "get_audit_trail"={
- *              "path"="/request/{id}/audit_trail",
+ *              "path"="/request_conversions/{id}/audit_trail",
  *              "method"="get",
  *              "swagger_context" = {
  *                  "summary"="Audittrail",
@@ -43,7 +43,7 @@ use Conduction\CommonGroundBundle\Entity\ChangeLog;
  *          }
  * 		},
  * )
- * @ORM\Entity(repositoryClass="RequestConversionRepository")
+ * @ORM\Entity(repositoryClass=RequestConversionRepository::class)
  * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
  * @ApiFilter(BooleanFilter::class)
@@ -95,6 +95,13 @@ class RequestConversion
      */
     private $status;
 
+    /**
+     * @var string The url of the message that is stored to the TRC
+     * @Groups({"read"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $result;
+
     public function getId(): ?UuidInterface
     {
         return $this->id;
@@ -132,6 +139,18 @@ class RequestConversion
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getResult(): ?string
+    {
+        return $this->result;
+    }
+
+    public function setResult(?string $result): self
+    {
+        $this->result = $result;
 
         return $this;
     }

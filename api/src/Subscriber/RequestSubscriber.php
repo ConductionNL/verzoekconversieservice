@@ -54,21 +54,6 @@ class RequestSubscriber implements EventSubscriberInterface
             return;
         }
 
-        switch ($contentType) {
-            case 'application/json':
-                $renderType = 'json';
-                break;
-            case 'application/ld+json':
-                $renderType = 'jsonld';
-                break;
-            case 'application/hal+json':
-                $renderType = 'jsonhal';
-                break;
-            default:
-                $contentType = 'application/json';
-                $renderType = 'json';
-        }
-
         if($resource instanceof RequestConversion){
             $resource = $this->conversionService->convert($resource);
         }

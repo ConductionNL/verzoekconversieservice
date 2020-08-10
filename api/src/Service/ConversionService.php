@@ -55,13 +55,21 @@ class ConversionService
             $request->setStatus('FAILED');
 
             $token = [];
+            $token['name'] = "Zaak";
+            $token['description'] = 'Verzoek omzetten naar een zaak';
+            $token['reference'] = $this->params->get('app_name');
             $token['code'] = $this->params->get('app_name');
             $token['status'] = $request->getStatus();
             $token['message'] = $request->getMessage();
+//            $token['resource'] = $case['url'];
+
+//            var_dump($token);
 
             $this->commonGroundService->setHeader('Authorization',$this->params->get('app_application_key'));
-
-            var_dump($this->commonGroundService->createResource($token, ['component'=>'trc','type'=>'tokens']));
+//            var_dump($this->commonGroundService->cleanUrl(['component'=>'trc','type'=>'tokens']));
+            $token = $this->commonGroundService->createResource($token, ['component'=>'trc','type'=>'tokens']);
+//            var_dump($token);
+            $request->setResult($token['@id']);
 
             return $request;
         }
@@ -90,7 +98,9 @@ class ConversionService
             $token['message'] = $request->getMessage();
         }
 
-        $this->commonGroundService->createResource($token, ['component'=>'trc','type'=>'tokens']);
+        $token = $this->commonGroundService->createResource($token, ['component'=>'trc','type'=>'tokens']);
+        var_dump($token);
+        $request->setResult($token['@id']);
 
         return $request;
 
