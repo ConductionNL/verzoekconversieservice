@@ -99,7 +99,6 @@ class ConversionService
         }
 
         $token = $this->commonGroundService->createResource($token, ['component'=>'trc','type'=>'tokens']);
-        var_dump($token);
         $request->setResult($token['@id']);
 
         return $request;
