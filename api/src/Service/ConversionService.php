@@ -88,7 +88,7 @@ class ConversionService
             $token['reference'] = $this->params->get('app_name');
             $token['status'] = $request->getStatus();
             $token['message'] = $request->getMessage();
-            $token['resource'] = $case['url'];
+            $token['resource'] = $requestData['@id'];
         }catch(HttpException $exception){
             $request->setMessage($exception->getMessage());
             $request->setStatus('FAILED');
