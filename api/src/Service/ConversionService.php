@@ -75,7 +75,7 @@ class ConversionService
         }
 
         try{
-            array_push($requestData['cases'], $request->getMessage());
+            array_push($requestData['cases'], $case['url']);
 
             unset($requestData['submitters']);
             unset($requestData['roles']);
