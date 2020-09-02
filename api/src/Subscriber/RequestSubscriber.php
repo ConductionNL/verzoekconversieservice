@@ -4,6 +4,7 @@ namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Component;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use App\Entity\RequestConversion;
 use App\Service\ConversionService;
 use App\Service\InstallService;
@@ -22,9 +23,11 @@ class RequestSubscriber implements EventSubscriberInterface
     private $serializer;
     private $nlxLogService;
     private $conversionService;
+    private $commonGroundService;
 
-    public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer, ConversionService $conversionService)
+    public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer, ConversionService $conversionService, CommonGroundService $commonGroundService)
     {
+        $this->commonGroundService = $commonGroundService;
         $this->params = $params;
         $this->em = $em;
         $this->serializer = $serializer;
@@ -55,7 +58,12 @@ class RequestSubscriber implements EventSubscriberInterface
         }
 
         if($resource instanceof RequestConversion){
-            $resource = $this->conversionService->convert($resource);
+            $resource->getRequest();
+            $request = $this->commonGroundService->getResource($resource->getRequest());
+
+            if($request['status'] != 'complete'){
+                $resource = $this->conversionService->convert($resource);
+            }
         }
         $this->em->persist($resource);
         $this->em->flush();
