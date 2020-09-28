@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "700e3f85-ce54-459d-9901-052e95c59ba9",
+		"name": "Verzoek Conversie Service",
+		"description": "    API Details\n    - Component: Verzoek Conversie Service\n    - Reference: vcs\n    - Enviroment: dev\n    - Version: V1.0\n    - Repository: [online](https://github.com/ConductionNL/verzoekconversieservice) / [zip](https://github.com/ConductionNL/verzoekconversieservice/archive/master.zip)\n    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vcs-php) \n    - Datamodel: [postman](/schema/vcs.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) \n    \n    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "request conversions",
+			"item": [
+				{
+					"name": "Retrieves the collection of RequestConversion resources.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/request_conversions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"request_conversions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creates a RequestConversion resource.",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"request\": \"https://dev.zuid-drecht.nl/api/v1/vrc/requests/a8f8cbf9-e02d-4f71-b4a8-69e8e1e0bd18\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/request_conversions",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"request_conversions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "76e9cfba-be53-4af1-9181-64a791e1a6e9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ea04ce2-9831-43f5-8f33-b6d8216142dd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get Health",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce92dfd6-d8e5-4f52-bdf4-47dd74b9164a",
+						"exec": [
+							"// example using pm.response.to.have\r",
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// example using response assertions\r",
+							"pm.test(\"response should be okay to process\", function () {\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.not.have.jsonBody(\"error\");\r",
+							"});\r",
+							"\r",
+							"// example using pm.response.to.be*\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     // assert that the status code is 200\r",
+							"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+							"     // assert that the response has a valid JSON body\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+							"});\r",
+							"pm.test(\"status must be 'pass'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    console.log(jsonData);\r",
+							"    //var payloadData = JSON.parse(jsonData.Payload); //parsed payload\r",
+							"\r",
+							"    //console.log(payloadData.Id);\r",
+							"    pm.expect(jsonData.status).to.equal('pass');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/health+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{authorization}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e83c21a1-1bfd-44e1-80b9-2cba3bc071b2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "847608ec-bdf5-4bbc-938b-78df60c88b17",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "35b6ebcb-7f86-43c8-8888-019fe40ee28d",
+			"key": "baseUrl",
+			"value": "localhost"
+		},
+		{
+			"id": "a9d91828-51e9-4fd0-85e2-d19d18b27af5",
+			"key": "authorization",
+			"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

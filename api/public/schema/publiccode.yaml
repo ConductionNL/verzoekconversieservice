@@ -2,11 +2,11 @@ publiccodeYmlVersion: "0.2"
 
 name: vcs
 applicationSuite: commonground
-url: "https://github.com/ConductionNL/proto-component"
+url: "https://github.com/ConductionNL/verzoekconversieservice"
 landingURL: "vcs.zaakonline.nl" 
 isBasedOn: "https://github.com/ConductionNL/Proto-component-commonground.git" 
-softwareVersion: "V.0.1"
-releaseDate: "2020-10-08"
+softwareVersion: "V1.0"
+releaseDate: "2020-28-09"
 logo: vcs.zaakonline.nl 
 monochromeLogo: img/logo-mono.svg
 
@@ -37,7 +37,7 @@ usedBy:
   - Gemeente Hoorn
   
 
-roadmap: "https://github.com/ConductionNL/proto-component/blob/master/ROADMAP.md"
+roadmap: "https://github.com/ConductionNL/verzoekconversieservice/blob/master/ROADMAP.md"
 
 developmentStatus: development
 
@@ -66,7 +66,7 @@ description:
 #          on multiple rows. You should note what the software
 #          is and why one should need it.
 
-    documentation: "https://github.com/ConductionNL/proto-component/blob/master/README.md"
+    documentation: "https://github.com/ConductionNL/verzoekconversieservice/blob/master/README.md"
     apiDocumentation: "vcs.zaakonline.nl"
 #
 #    features:
