@@ -3,7 +3,7 @@ entries:
   pc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-09-28T09:51:57.654564813Z"
+    created: "2020-09-29T07:20:15.899591097Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
     digest: 2ccb90fd33c2a73b4448265ccae5bc3dc0c8daa5993ccaa4e8f2101d20963603
@@ -16,14 +16,14 @@ entries:
   vcs:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-09-28T09:51:57.658895713Z"
+    created: "2020-09-29T07:20:15.911881297Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: c4dade117127229e56e6e90338b8208ddb5dbc6e630015ce7543c09eee463852
+    digest: 4ea7fe9d60093c20db76e3dcf48691caa772554d27c6877a829825af067170c1
     home: vcs.zaakonline.nl
     icon: vcs.zaakonline.nl
     name: vcs
     urls:
     - vcs-0.1.0.tgz
     version: 0.1.0
-generated: "2020-09-28T09:51:57.648608713Z"
+generated: "2020-09-29T07:20:15.887866897Z"
