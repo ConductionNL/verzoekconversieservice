@@ -44,33 +44,38 @@ class ConversionService
                     break;
             }
         }
+
         return $request;
     }
 
-    public function getStatusType($caseType, string $status){
+    public function getStatusType($caseType, string $status)
+    {
         $local = $this->commonGroundService->getLocal();
         $this->commonGroundService->setLocal(null);
-        try{
+
+        try {
             $statusTypes = $this->commonGroundService->getResourceList(['component'=>'ztc', 'type'=>'statustypen'], ['zaaktype'=>$caseType])['results'];
-            foreach($statusTypes as $statusType){
+            foreach ($statusTypes as $statusType) {
 //                echo "{$statusType['omschrijving']} == $status = ";
 //                var_dump($statusType['omschrijving'] == $status);
-                if($statusType['omschrijving'] == $status){
+                if ($statusType['omschrijving'] == $status) {
                     return $statusType['url'];
                 }
             }
-        } catch(Exception $exception){
-            echo "see error!";
+        } catch (Exception $exception) {
+            echo 'see error!';
         }
         $this->commonGroundService->setLocal($local);
     }
 
-    public function changeStatus(string $status, RequestConversion $request, array $requestData){
+    public function changeStatus(string $status, RequestConversion $request, array $requestData)
+    {
         $cases = [];
-        foreach($requestData['cases'] as $case){
+        foreach ($requestData['cases'] as $case) {
             $jwt = $this->getJwtToken();
             $this->commonGroundService->setHeader('Authorization', "Bearer $jwt");
-            try{
+
+            try {
                 $case = $this->commonGroundService->getResource($case);
                 $statusType = $this->getStatusType($case['zaaktype'], $status);
                 $statusObject = [];
@@ -80,7 +85,6 @@ class ConversionService
                 $statusObject['datumStatusGezet'] = date('Y-m-d\Th:i:s');
 
                 $statusObject = $this->commonGroundService->createResource($statusObject, ['component'=>'zrc', 'type'=>'statussen'], false, true, false);
-
             } catch (Exception $exception) {
                 $this->commonGroundService->setHeader('Authorization', $this->params->get('app_application_key'));
             }
@@ -88,7 +92,8 @@ class ConversionService
         }
     }
 
-    public function createCase(RequestConversion $request, array $requestData){
+    public function createCase(RequestConversion $request, array $requestData)
+    {
         $requestType = $this->commonGroundService->getResource($requestData['requestType']);
         if (key_exists('caseType', $requestType)) {
             $caseType = $requestType['caseType'];
