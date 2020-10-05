@@ -15,7 +15,7 @@ settings:
   repro: https://github.com/ConductionNL/verzoekconversieservice
   demo: vcs.zaakonline.nl
   container: https://hub.docker.com/repository/docker/conduction/vcs-php
-  domain: zuid-drecht.nl
+  domain: westfriesland.commonground.nu
   subdomain: vcs
   subpath: vcs
   subpathRouting: true
