@@ -141,7 +141,7 @@ class ConversionService
 
 //            var_dump($token);
 
-             $this->commonGroundService->setHeader('Authorization', $this->params->get('app_application_key'));
+            $this->commonGroundService->setHeader('Authorization', $this->params->get('app_application_key'));
 
 //            var_dump($this->commonGroundService->cleanUrl(['component'=>'trc','type'=>'tokens']));
             $token = $this->commonGroundService->createResource($token, ['component'=>'trc', 'type'=>'tokens'], false, true, false);
