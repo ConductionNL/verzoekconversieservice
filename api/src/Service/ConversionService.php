@@ -31,7 +31,7 @@ class ConversionService
         if (key_exists('status', $requestData)) {
             switch ($requestData['status']) {
                 case 'submitted':
-                    $request = $this->createCase($request, $requestData);
+                    $request = $this->createCase($request, $requestData, $requestData['status']);
                     $this->changeStatus($requestData['status'], $request, $requestData);
                     break;
                 case 'inProgress':
@@ -92,7 +92,7 @@ class ConversionService
         }
     }
 
-    public function createCase(RequestConversion $request, array $requestData)
+    public function createCase(RequestConversion $request, array $requestData, $status)
     {
         $requestType = $this->commonGroundService->getResource($requestData['requestType']);
         if (key_exists('caseType', $requestType)) {
@@ -142,6 +142,7 @@ class ConversionService
 //            var_dump($token);
 
             $this->commonGroundService->setHeader('Authorization', $this->params->get('app_application_key'));
+
 //            var_dump($this->commonGroundService->cleanUrl(['component'=>'trc','type'=>'tokens']));
             $token = $this->commonGroundService->createResource($token, ['component'=>'trc', 'type'=>'tokens'], false, true, false);
 //            var_dump($token);
@@ -156,7 +157,8 @@ class ConversionService
             unset($requestData['submitters']);
             unset($requestData['roles']);
             unset($requestData['labels']);
-            $this->commonGroundService->updateResource($requestData, ['component'=>'vrc', 'type'=>'requests', 'id'=>$requestData['id']], false, true, false);
+            $requestData = $this->commonGroundService->updateResource($requestData, ['component'=>'vrc', 'type'=>'requests', 'id'=>$requestData['id']], false, true, false);
+            $this->changeStatus($status, $request, $requestData);
 
             $token = [];
             $token['name'] = 'Zaak';
