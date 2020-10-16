@@ -12,7 +12,7 @@ info:
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vcs-php) 
     - Datamodel: [postman](/schema/vcs.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
   /audit_trails:
@@ -3309,128 +3309,6 @@ components:
         '@type':
           readOnly: true
           type: string
-    LoginLog-read:
-      type: object
-      description: 'An entity representing an login log.'
-      properties:
-        id:
-          readOnly: true
-          description: 'The UUID identifier of this object'
-          externalDocs:
-            url: 'http://schema.org/identifier'
-          type: string
-          format: uuid
-        address:
-          description: 'The ip address of the login'
-          type: string
-        method:
-          description: 'The method of the login'
-          type: string
-        status:
-          description: 'the status code of the login'
-          type: string
-        dateCreated:
-          writeOnly: true
-          description: 'The moment this login was made'
-          type: string
-          format: date-time
-          nullable: true
-        dateModified:
-          description: 'The moment this login was updated'
-          type: string
-          format: date-time
-          nullable: true
-      required:
-        - address
-        - method
-        - status
-    LoginLog-write:
-      type: object
-      description: 'An entity representing an login log.'
-      required:
-        - address
-        - method
-        - status
-      properties:
-        address:
-          description: 'The ip address of the login'
-          type: string
-        method:
-          description: 'The method of the login'
-          type: string
-        status:
-          description: 'the status code of the login'
-          type: string
-    'LoginLog:jsonld-read':
-      type: object
-      description: 'An entity representing an login log.'
-      properties:
-        '@context':
-          readOnly: true
-          type: string
-        '@id':
-          readOnly: true
-          type: string
-        '@type':
-          readOnly: true
-          type: string
-        id:
-          readOnly: true
-          description: 'The UUID identifier of this object'
-          externalDocs:
-            url: 'http://schema.org/identifier'
-          type: string
-          format: uuid
-        address:
-          description: 'The ip address of the login'
-          type: string
-        method:
-          description: 'The method of the login'
-          type: string
-        status:
-          description: 'the status code of the login'
-          type: string
-        dateCreated:
-          writeOnly: true
-          description: 'The moment this login was made'
-          type: string
-          format: date-time
-          nullable: true
-        dateModified:
-          description: 'The moment this login was updated'
-          type: string
-          format: date-time
-          nullable: true
-      required:
-        - address
-        - method
-        - status
-    'LoginLog:jsonld-write':
-      type: object
-      description: 'An entity representing an login log.'
-      required:
-        - address
-        - method
-        - status
-      properties:
-        '@context':
-          readOnly: true
-          type: string
-        '@id':
-          readOnly: true
-          type: string
-        '@type':
-          readOnly: true
-          type: string
-        address:
-          description: 'The ip address of the login'
-          type: string
-        method:
-          description: 'The method of the login'
-          type: string
-        status:
-          description: 'the status code of the login'
-          type: string
     RequestConversion-read:
       type: object
       description: ''
@@ -3541,59 +3419,6 @@ definitions:
         description: 'The url of the message that is stored to the TRC'
         type: string
     required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-08-10 12:10:11'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-08-10 12:10:11'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
   AuditTrail-read:
     properties:
       id:
@@ -3698,12 +3523,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-10 12:10:11'
+        example: '2020-10-16 09:00:03'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-10 12:10:11'
+        example: '2020-10-16 09:00:03'
     required: []
   AuditTrail-write:
     properties:
@@ -3711,6 +3536,59 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-10-16 09:00:03'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-10-16 09:00:03'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -3721,38 +3599,32 @@ tags:
       
       
   -
-    name: ChangeLog
-    description: |
-      An resource representing a log line.
-      
-      This entity represents a product that can be ordered via the OrderRegistratieComponent.
-  -
     name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: LoginLog
+    name: ChangeLog
     description: |
-      An entity representing an login log.
+      An resource representing a log line.
       
-      This entity logs all the login attempts
+      This entity represents a product that can be ordered via the OrderRegistratieComponent.
 securityDefinitions:
   JWT-Oauth:
     type: oauth2
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
