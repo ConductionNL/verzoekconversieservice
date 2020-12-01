@@ -10,9 +10,9 @@ info:
     - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/verzoekconversieservice) / [zip](https://github.com/ConductionNL/verzoekconversieservice/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vcs-php) 
-    - Datamodel: [postman](/schema/vcs.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+    - Datamodel: [postman](schema/vcs.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
   /audit_trails:
@@ -3523,12 +3523,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-16 09:00:03'
+        example: '2020-12-01 13:38:55'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-16 09:00:03'
+        example: '2020-12-01 13:38:55'
     required: []
   AuditTrail-write:
     properties:
@@ -3576,12 +3576,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-16 09:00:03'
+        example: '2020-12-01 13:38:55'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-16 09:00:03'
+        example: '2020-12-01 13:38:55'
     required: []
   ChangeLog-write:
     properties:
