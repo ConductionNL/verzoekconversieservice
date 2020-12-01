@@ -4,14 +4,12 @@ namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Component;
-use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use App\Entity\RequestConversion;
 use App\Service\ConversionService;
-use App\Service\InstallService;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -57,11 +55,11 @@ class RequestSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if($resource instanceof RequestConversion){
+        if ($resource instanceof RequestConversion) {
             $resource->getRequest();
             $request = $this->commonGroundService->getResource($resource->getRequest());
 
-            if($request['status'] != 'complete'){
+            if ($request['status'] != 'complete') {
                 $resource = $this->conversionService->convert($resource);
             }
         }
