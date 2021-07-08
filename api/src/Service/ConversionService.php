@@ -92,6 +92,39 @@ class ConversionService
         }
     }
 
+    public function createZaakObject(array $case, string $object, string $type, string $relation, ?string $description = null): array
+    {
+        $object = [
+            'zaak'                  => $case['url'],
+            'object'                => $object,
+            'objectType'            => $type,
+            'objectTypeOverige'     => $description,
+            'relatieOmschrijving'   => $relation,
+        ];
+        return $this->commonGroundService->createResource($object, ['component' => 'zrc', 'type' => 'zaakobjecten']);
+    }
+
+    public function convertProperties(array $properties, array $case): array
+    {
+        $results = [];
+        foreach($properties as $key=>$value){
+            $results[] = $this->createZaakObject($case, $value, 'objectTypeOverige', $key, 'verzoekobject');
+        }
+        return $results;
+    }
+
+    public function createCaseObjects(RequestConversion $conversion, array $case): array
+    {
+        $request = $this->commonGroundService->getResource($conversion->getRequest());
+        $caseObjects = $this->convertProperties($request['properties'], $case);
+
+        foreach($request['submitters'] as $submitter){
+            $caseObjects[] = $this->createZaakObject($case, $submitter, 'natuurlijk_persoon', 'indiener');
+        }
+
+        return $caseObjects;
+    }
+
     public function createCase(RequestConversion $request, array $requestData, $status)
     {
         $requestType = $this->commonGroundService->getResource($requestData['requestType']);
@@ -124,6 +157,8 @@ class ConversionService
 
             $request->setStatus('OK');
             $request->setMessage('Verzoek omgezet naar zaak');
+
+            $this->createCaseObjects($request, $case);
 
             $this->commonGroundService->setHeader('Authorization', $this->params->get('app_application_key'));
         } catch (Exception $exception) {
