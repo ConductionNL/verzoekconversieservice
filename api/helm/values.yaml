@@ -60,7 +60,8 @@ postgresql:
 
 ingress:
   enabled: false
-  hostname: .local
+  type: "nginx"
+  hostname: verzoekconversieservice.local
   path: /
   annotations:
     # kubernetes.io/ingress.global-static-ip-name: chart-ip
