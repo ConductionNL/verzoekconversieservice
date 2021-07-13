@@ -9,15 +9,26 @@ parameters:
         vrc:
             #Standard authentication with api keys
             auth: apikey
-            location: example1.component.local
+            apikey: 45c1a4b6-59d3-4a6e-86bf-88a872f35845
+            location: https://conduction.demodam.nl/api/v1/vrc
+        vtc:
+            auth: apikey
+            apikey: 45c1a4b6-59d3-4a6e-86bf-88a872f35845
+            location: https://conduction.demodam.nl/api/v1/vtc
+        wrc:
+            auth: apikey
+            apikey: 45c1a4b6-59d3-4a6e-86bf-88a872f35845
+            location: https://conduction.demodam.nl/api/v1/wrc
         zrc:
             #jwt-hs256 authentication with symmetric secret
-            auth: jwt-hs256
-            id: 45f81fd4-5503-46a3-97bf-99ed8b71562d
-            secret: EROY9wY6+4RwdJFIPLD/YWYvRYweS3FTViaY+TjHmfo=
-            location: example4.component.local
+            auth: jwt-HS256
+            id: conduction
+            secret: ***REMOVED***
+            location: https://open-zaak.demodam.nl/zaken/api/v1
+            accept: application/json
         ztc:
-            auth: jwt-hs256
-            id: 45f81fd4-5503-46a3-97bf-99ed8b71562d
-            secret: EROY9wY6+4RwdJFIPLD/YWYvRYweS3FTViaY+TjHmfo=
-            location: example4.component.local
+            auth: jwt-HS256
+            id: conduction
+            secret: ***REMOVED***
+            location: https://open-zaak.demodam.nl/catalogi/api/v1
+            accept: application/json

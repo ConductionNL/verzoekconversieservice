@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e7890938c7862e63abc0e4bbe3f8e31",
+    "content-hash": "04507417ae7d74b5738644199f9bbd52",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -667,16 +667,16 @@
         },
         {
             "name": "conduction/commongroundbundle",
-            "version": "v2.x-dev",
+            "version": "dev-feature-auth",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ConductionNL/CommonGroundBundle.git",
-                "reference": "a211f8e3370be542ffcd239697234289f4440d6c"
+                "reference": "c22d56966773cf7a4a4576d5d7db780214ea3dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ConductionNL/CommonGroundBundle/zipball/a211f8e3370be542ffcd239697234289f4440d6c",
-                "reference": "a211f8e3370be542ffcd239697234289f4440d6c",
+                "url": "https://api.github.com/repos/ConductionNL/CommonGroundBundle/zipball/c22d56966773cf7a4a4576d5d7db780214ea3dce",
+                "reference": "c22d56966773cf7a4a4576d5d7db780214ea3dce",
                 "shasum": ""
             },
             "require": {
@@ -759,7 +759,7 @@
                 "issues": "https://github.com/ConductionNL/ConductionCommonGroundBundle/issues",
                 "source": "https://github.com/ConductionNL/ConductionCommonGroundBundle"
             },
-            "time": "2021-07-08T09:23:18+00:00"
+            "time": "2021-07-12T13:52:57+00:00"
         },
         {
             "name": "doctrine/annotations",

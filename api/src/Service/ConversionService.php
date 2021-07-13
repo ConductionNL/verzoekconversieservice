@@ -8,6 +8,7 @@ use DateTime;
 use Exception;
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Core\JWK;
+use Jose\Component\KeyManagement\JWKFactory;
 use Jose\Component\Signature\Algorithm\HS256;
 use Jose\Component\Signature\JWSBuilder;
 use Jose\Component\Signature\Serializer\CompactSerializer;
@@ -23,29 +24,6 @@ class ConversionService
     {
         $this->commonGroundService = $commonGroundService;
         $this->params = $params;
-    }
-
-    public function convert(RequestConversion $request)
-    {
-        $requestData = $this->commonGroundService->getResource($request->getRequest());
-        if (key_exists('status', $requestData)) {
-            switch ($requestData['status']) {
-                case 'submitted':
-                    $request = $this->createCase($request, $requestData, $requestData['status']);
-                    $this->changeStatus($requestData['status'], $request, $requestData);
-                    break;
-                case 'inProgress':
-                case 'processed':
-                case 'rejected':
-                case 'retracted':
-                    $this->changeStatus($requestData['status'], $request, $requestData);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return $request;
     }
 
     public function getStatusType($caseType, string $status)
@@ -72,9 +50,6 @@ class ConversionService
     {
         $cases = [];
         foreach ($requestData['cases'] as $case) {
-            $jwt = $this->getJwtToken();
-            $this->commonGroundService->setHeader('Authorization', "Bearer $jwt");
-
             try {
                 $case = $this->commonGroundService->getResource($case);
                 $statusType = $this->getStatusType($case['zaaktype'], $status);
@@ -108,18 +83,18 @@ class ConversionService
     {
         $results = [];
         foreach($properties as $key=>$value){
-            $results[] = $this->createZaakObject($case, $value, 'objectTypeOverige', $key, 'verzoekobject');
+            if(filter_var($value, FILTER_VALIDATE_URL))
+                $results[] = $this->createZaakObject($case, $value, 'objectTypeOverige', $key, 'verzoekobject');
         }
         return $results;
     }
 
-    public function createCaseObjects(RequestConversion $conversion, array $case): array
+    public function createCaseObjects(array $request, array $case): array
     {
-        $request = $this->commonGroundService->getResource($conversion->getRequest());
         $caseObjects = $this->convertProperties($request['properties'], $case);
 
         foreach($request['submitters'] as $submitter){
-            $caseObjects[] = $this->createZaakObject($case, $submitter, 'natuurlijk_persoon', 'indiener');
+            $caseObjects[] = $this->createZaakObject($case, $submitter['@id'], 'natuurlijk_persoon', 'indiener');
         }
 
         return $caseObjects;
@@ -127,17 +102,22 @@ class ConversionService
 
     public function createCase(RequestConversion $request, array $requestData, $status)
     {
-        $requestType = $this->commonGroundService->getResource($requestData['requestType']);
+        $explode = explode('/', $requestData['requestType']);
+        $requestType = $this->commonGroundService->getResource(['component' => 'vtc', 'type' => 'request_types', 'id' => end($explode)]);
         if (key_exists('caseType', $requestType)) {
             $caseType = $requestType['caseType'];
         }
 
         $case = [];
         $case['zaaktype'] = $caseType;
-        $case['bronorganisatie'] = $this->commonGroundService->getResource($requestData['organization'])['rsin'];
-        $case['verantwoordelijkeOrganisatie'] = $this->commonGroundService->getResource($requestData['organization'])['rsin'];
+        $array = explode('/', $requestData['organization']);
+        $organization = $this->commonGroundService->getResource(['component' => 'wrc', 'type' => 'organizations', 'id' =>end($array)]);
+        $case['bronorganisatie'] = $organization['rsin'];
+        $case['verantwoordelijkeOrganisatie'] = $organization['rsin'];
         $case['omschrijving'] = $requestData['name'];
         $case['startdatum'] = date('Y-m-d');
+
+//        var_dump($case);
 
         $caseObject = [];
         $caseObject['object'] = $request->getRequest();
@@ -145,22 +125,14 @@ class ConversionService
         $caseObject['objectTypeOverige'] = 'verzoek';
         $caseObject['relatieomschrijving'] = 'verzoek behorende bij de zaak';
 
-        $jwt = $this->getJwtToken();
-        $this->commonGroundService->setHeader('Authorization', "Bearer $jwt");
-
         try {
             $case = $this->commonGroundService->createResource($case, ['component'=>'zrc', 'type'=>'zaken'], false, true, false);
-            $caseObject['zaak'] = $case['url'];
-//            echo json_encode($caseObject);
-//            echo $jwt;
-//            $caseObject = $this->commonGroundService->createResource($case, ['component'=>'zrc', 'type'=>'zaakobjecten'], false, true, false);
+//            var_dump($this->createCaseObjects($requestData, $case));
 
             $request->setStatus('OK');
             $request->setMessage('Verzoek omgezet naar zaak');
 
-            $this->createCaseObjects($request, $case);
 
-            $this->commonGroundService->setHeader('Authorization', $this->params->get('app_application_key'));
         } catch (Exception $exception) {
             $request->setMessage($exception->getMessage());
             $request->setStatus('FAILED');
@@ -176,12 +148,11 @@ class ConversionService
 
 //            var_dump($token);
 
-            $this->commonGroundService->setHeader('Authorization', $this->params->get('app_application_key'));
 
 //            var_dump($this->commonGroundService->cleanUrl(['component'=>'trc','type'=>'tokens']));
-            $token = $this->commonGroundService->createResource($token, ['component'=>'trc', 'type'=>'tokens'], false, true, false);
+//            $token = $this->commonGroundService->createResource($token, ['component'=>'trc', 'type'=>'tokens'], false, true, false);
 //            var_dump($token);
-            $request->setResult($token['@id']);
+//            $request->setResult($token['@id']);
 
             return $request;
         }
@@ -217,32 +188,26 @@ class ConversionService
         return $request;
     }
 
-    public function getJwtToken()
+    public function convert(RequestConversion $request)
     {
-        $component = $this->commonGroundService->getComponent('zrc');
-        $now = new DateTime('now');
-        $jwsBuilder = new JWSBuilder(new AlgorithmManager([new HS256()]));
+        $requestData = $this->commonGroundService->getResource($request->getRequest());
+        if (key_exists('status', $requestData)) {
+            switch ($requestData['status']) {
+                case 'submitted':
+                    $request = $this->createCase($request, $requestData, $requestData['status']);
+                    $this->changeStatus($requestData['status'], $request, $requestData);
+                    break;
+                case 'inProgress':
+                case 'processed':
+                case 'rejected':
+                case 'retracted':
+                    $this->changeStatus($requestData['status'], $request, $requestData);
+                    break;
+                default:
+                    break;
+            }
+        }
 
-        $jwk = new JWK([
-            'kty' => 'oct',
-            'k'   => base64_encode(addslashes($component['secret'])),
-        ]);
-        $clientId = $component['id'];
-        $payload = json_encode([
-            'iss'                => $clientId,
-            'iat'                => $now->getTimestamp(),
-            'client_id'          => $clientId,
-            'user_id'            => $this->params->get('app_name'),
-            'user_representation'=> $this->params->get('app_name'),
-        ]);
-        $jws = $jwsBuilder
-            ->create()
-            ->withPayload($payload)
-            ->addSignature($jwk, ['alg'=>'HS256'])
-            ->build();
-
-        $serializer = new CompactSerializer();
-
-        return $serializer->serialize($jws, 0);
+        return $request;
     }
 }
