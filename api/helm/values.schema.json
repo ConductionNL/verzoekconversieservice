@@ -71,7 +71,7 @@
                 "hostname": "contactcatalogus.local",
                 "path": "/",
                 "annotations": null,
-                "tls": null
+                "tls": []
             },
             "resources": {}
         }
@@ -706,7 +706,7 @@
                     "hostname": "contactcatalogus.local",
                     "path": "/",
                     "annotations": null,
-                    "tls": null
+                    "tls": []
                 }
             ],
             "required": [
@@ -757,13 +757,9 @@
                 },
                 "tls": {
                     "$id": "#/properties/ingress/properties/tls",
-                    "type": "null",
+                    "type": "array",
                     "title": "The tls schema",
-                    "description": "",
-                    "default": null,
-                    "examples": [
-                        null
-                    ]
+                    "description": ""
                 }
             },
             "additionalProperties": true
