@@ -56,8 +56,7 @@ class RequestSubscriber implements EventSubscriberInterface
         }
 
         if ($resource instanceof RequestConversion) {
-            $resource->getRequest();
-            $request = $this->commonGroundService->getResource($resource->getRequest());
+            $request = $this->commonGroundService->getResource($resource->getResource());
 
             if ($request['status'] != 'complete') {
                 $resource = $this->conversionService->convert($resource);

@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\RequestConversionRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
@@ -63,7 +64,7 @@ class RequestConversion
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The contact for this organization
@@ -74,7 +75,7 @@ class RequestConversion
      *     max=255
      * )
      */
-    private $request;
+    private string $resource;
 
     /**
      * @var string The message that is logged to the token component
@@ -82,7 +83,7 @@ class RequestConversion
      * @Groups({"read"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $message;
+    private string $message;
 
     /**
      * @var string The status that is logged to the token component **OK or FAILED**
@@ -91,28 +92,46 @@ class RequestConversion
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status;
+    private string $status;
 
     /**
      * @var string The url of the message that is stored to the TRC
      * @Groups({"read"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $result;
+    private string $result;
+
+    /**
+     * @var DateTime The date and time the token was created
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private DateTime $dateCreated;
+
+    /**
+     * @var DateTime The date and time the token was last modified
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private DateTime $dateModified;
 
     public function getId(): ?UuidInterface
     {
         return $this->id;
     }
 
-    public function getRequest(): ?string
+    public function getResource(): ?string
     {
-        return $this->request;
+        return $this->resource;
     }
 
-    public function setRequest(string $request): self
+    public function setResource(string $resource): self
     {
-        $this->request = $request;
+        $this->resource = $resource;
 
         return $this;
     }
@@ -149,6 +168,30 @@ class RequestConversion
     public function setResult(?string $result): self
     {
         $this->result = $result;
+
+        return $this;
+    }
+
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+        return $this->dateCreated;
+    }
+
+    public function setDateCreated(?\DateTimeInterface $dateCreated): self
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getDateModified(): ?\DateTimeInterface
+    {
+        return $this->dateModified;
+    }
+
+    public function setDateModified(?\DateTimeInterface $dateModified): self
+    {
+        $this->dateModified = $dateModified;
 
         return $this;
     }
