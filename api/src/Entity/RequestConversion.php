@@ -67,7 +67,7 @@ class RequestConversion
     private UuidInterface $id;
 
     /**
-     * @var string The contact for this organization
+     * @var string|null The contact for this organization
      *
      * @Groups({"read", "write"})
      * @Assert\Url
@@ -75,31 +75,31 @@ class RequestConversion
      *     max=255
      * )
      */
-    private string $resource;
+    private ?string $resource;
 
     /**
-     * @var string The message that is logged to the token component
+     * @var string|null The message that is logged to the token component
      *
      * @Groups({"read"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private string $message;
+    private ?string $message;
 
     /**
-     * @var string The status that is logged to the token component **OK or FAILED**
+     * @var string|null The status that is logged to the token component **OK or FAILED**
      *
      * @Groups({"read"})
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $status;
+    private ?string $status;
 
     /**
-     * @var string The url of the message that is stored to the TRC
+     * @var string|null The url of the message that is stored to the TRC
      * @Groups({"read"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $result;
+    private ?string $result;
 
     /**
      * @var DateTime The date and time the token was created
