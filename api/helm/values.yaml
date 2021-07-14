@@ -14,6 +14,31 @@ security:
   jwt:
     id:
     privateKey:
+  dependencies:
+    vrc:
+      auth: apikey
+      apikey: '!changeme!'
+      location: http://verzoekregistratiecomponent.local
+    vtc:
+      auth: apikey
+      apikey: '!changeme!'
+      location: http://verzoektypecatalogus.local
+    wrc:
+      auth: apikey
+      apikey: '!changeme!'
+      location: http://webresourcecatalogus.local
+    zrc:
+      auth: jwt-HS256
+      id: conduction
+      secret: '!changeme!'
+      location: http://open-zaak.local/zaken/api/v1
+      accept: application/json
+    ztc:
+      auth: jwt-HS256
+      id: conduction
+      secret: '!changeme!'
+      location: http://open-zaak.local/catalogi/api/v1
+      accept: application/json
 
 php:
   repository: docker.io/conduction/protocomponent-php
