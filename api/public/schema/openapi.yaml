@@ -11,9 +11,8 @@ info:
     - Repository: [online](https://github.com/ConductionNL/verzoekconversieservice) / [zip](https://github.com/ConductionNL/verzoekconversieservice/archive/master.zip)
     - Docker Image: [online]() 
     - Datamodel: [postman](schema/verzoekconversieservice.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
-    
+
     Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
-    
 paths:
   /audit_trails:
     get:
@@ -3523,12 +3522,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-01 23:34:39'
+        example: '2021-07-13 14:21:40'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-01 23:34:39'
+        example: '2021-07-13 14:21:40'
     required: []
   AuditTrail-write:
     properties:
@@ -3576,12 +3575,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-01 23:34:39'
+        example: '2021-07-13 14:21:40'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-01 23:34:39'
+        example: '2021-07-13 14:21:40'
     required: []
   ChangeLog-write:
     properties:
@@ -3594,21 +3593,20 @@ definitions:
 tags:
   -
     name: RequestConversion
-    description: |
-      
-      
-      
+    description: |+
+
+
   -
     name: AuditTrail
-    description: |
+    description: |-
       An resource representing a log line.
-      
+
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
     name: ChangeLog
-    description: |
+    description: |-
       An resource representing a log line.
-      
+
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
 securityDefinitions:
   JWT-Oauth:

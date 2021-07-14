@@ -5,7 +5,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-03-01T23:35:05.7228843Z"
+    created: "2021-07-14T12:03:43.0184762Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -34,13 +34,83 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
+  redis:
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 6.0.11
+    created: "2021-07-14T12:03:43.0390839Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: Open source, advanced key-value store. It is often referred to as
+      a data structure server since keys can contain strings, hashes, lists, sets
+      and sorted sets.
+    digest: 2d70861d16fc410ed6d6c818b97f7b0d519031147e5c7b42c5691d4c38742c44
+    home: https://github.com/bitnami/charts/tree/master/bitnami/redis
+    icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+    keywords:
+    - redis
+    - keyvalue
+    - database
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    - email: cedric@desaintmartin.fr
+      name: desaintmartin
+    name: redis
+    sources:
+    - https://github.com/bitnami/bitnami-docker-redis
+    - http://redis.io/
+    urls:
+    - charts/redis-12.7.7.tgz
+    version: 12.7.7
   verzoekconversieservice:
-  - apiVersion: v1
+  - annotations:
+      artifacthub.io/containsSecurityUpdates: "true"
+    apiVersion: v2
     appVersion: V1.0
-    created: "2021-03-01T23:35:05.7092887Z"
+    created: "2021-07-14T12:03:43.0004046Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.1.1
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.7.7
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: f8de75c4aaa25c63075bbf6a3abd729de40e892ebad153cc5f3651aed0714170
+    digest: a22c5de1fcc69fadb5c9226c638df140072085a8abd72af54abe709ff881bd44
+    home: https://www.conduction.nl
+    icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
+    keywords:
+    - commonground
+    - haven
+    - nlx
+    - component
+    maintainers:
+    - email: ruben@conduction.nl
+      name: Ruben van der Linde
+    - email: info@conduction.nl
+      name: Conduction
+    name: verzoekconversieservice
+    sources:
+    - https://commonground.conduction.nl/
+    - https://www.commonground.nl/
+    urls:
+    - verzoekconversieservice-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v1
+    appVersion: V1.0
+    created: "2021-07-14T12:03:42.9705476Z"
+    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
+      beschikbaar.
+    digest: 6e87af9d8941e49b9160aee2b29efe35cc12c7dd52aee0f85879c80bc7cf7460
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -60,4 +130,4 @@ entries:
     urls:
     - verzoekconversieservice-0.1.0.tgz
     version: 0.1.0
-generated: "2021-03-01T23:35:05.6861032Z"
+generated: "2021-07-14T12:03:42.9476804Z"
