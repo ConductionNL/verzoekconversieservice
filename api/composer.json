@@ -6,7 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.1",
-        "conduction/commongroundbundle": "dev-feature-auth",
+        "conduction/commongroundbundle": "^2.*-dev",
         "phpdocumentor/reflection-docblock": "^5.1",
         "sensio/framework-extra-bundle": "^5.5",
         "sensiolabs/security-checker": "^6.0",
