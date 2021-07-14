@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\RequestConversion;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
-use DateTime;
 use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -32,6 +31,7 @@ class ConversionService
         } catch (Exception $exception) {
             echo 'see error!';
         }
+
         return null;
     }
 
@@ -43,7 +43,7 @@ class ConversionService
             $statusType = $this->getStatusType($case['zaaktype'], $status);
             $statusObject = [];
 
-            if($statusType){
+            if ($statusType) {
                 $statusObject['zaak'] = $case['url'];
                 $statusObject['statustype'] = $statusType;
                 $statusObject['datumStatusGezet'] = date('Y-m-d\Th:i:s');
@@ -61,40 +61,43 @@ class ConversionService
             'relatieOmschrijving'   => $relation,
         ];
         $description ? $object['objectTypeOverige'] = $description : null;
+
         return $this->commonGroundService->createResource($object, ['component' => 'zrc', 'type' => 'zaakobjecten']);
     }
 
     public function createCaseProperty(array $case, string $key, string $value): ?array
     {
         $properties = $this->commonGroundService->getResourceList(['component' => 'ztc', 'type' => 'eigenschappen'], ['zaaktype' => $case['zaaktype'], 'status' => 'alles'])['results'];
-        foreach($properties as $property){
-            if($property['definitie'] == $key && $value){
+        foreach ($properties as $property) {
+            if ($property['definitie'] == $key && $value) {
                 $caseProperty = [
                     'zaak'          => $case['url'],
                     'eigenschap'    => $property['url'],
                     'waarde'        => substr($value, 0, 255),
                 ];
-                return $this->commonGroundService->createResource($caseProperty, ['component'=>'zrc', 'type'=>"zaken/{$case["id"]}/zaakeigenschappen"]);
+
+                return $this->commonGroundService->createResource($caseProperty, ['component'=>'zrc', 'type'=>"zaken/{$case['id']}/zaakeigenschappen"]);
             }
         }
+
         return null;
     }
 
     public function convertProperties(array $properties, array $case): array
     {
         $results = [];
-        foreach($properties as $key=>$value){
-            if(filter_var($value, FILTER_VALIDATE_URL)){
+        foreach ($properties as $key=>$value) {
+            if (filter_var($value, FILTER_VALIDATE_URL)) {
                 $results[] = $this->createZaakObject($case, $value, 'overige', $key, 'verzoekobject');
-            }
-            elseif(is_array($value)) {
-                foreach ($value as $item)
+            } elseif (is_array($value)) {
+                foreach ($value as $item) {
                     $results[] = $this->createZaakObject($case, $item, 'overige', $key, 'verzoekobject');
-            }
-            else{
+                }
+            } else {
                 $results[] = $this->createCaseProperty($case, $key, $value);
             }
         }
+
         return $results;
     }
 
@@ -102,18 +105,20 @@ class ConversionService
     {
         $roleTypes = $this->commonGroundService->getResourceList(['component' => 'ztc', 'type' => 'roltypen'], ['zaaktype' => $case['zaaktype'], 'status' => 'alles'])['results'];
 
-        foreach($roleTypes as $roleType){
-            if($roleType['omschrijving'] == 'indiener'){
+        foreach ($roleTypes as $roleType) {
+            if ($roleType['omschrijving'] == 'indiener') {
                 $submitterObject = [
-                    'zaak' => $case['url'],
-                    'betrokkene' => $submitter,
-                    'betrokkeneType' => $submitterType,
+                    'zaak'              => $case['url'],
+                    'betrokkene'        => $submitter,
+                    'betrokkeneType'    => $submitterType,
                     'roltoelichting'    => 'De indiener van ze zaak vanuit een verzoek.',
-                    'roltype' => $roleType['url'],
+                    'roltype'           => $roleType['url'],
                 ];
-                return $this->commonGroundService->createResource($submitterObject, ['component'=>'zrc', 'type'=>"rollen"]);
+
+                return $this->commonGroundService->createResource($submitterObject, ['component'=>'zrc', 'type'=>'rollen']);
             }
         }
+
         return null;
     }
 
@@ -122,11 +127,10 @@ class ConversionService
         $caseObjects = $this->convertProperties($request['properties'], $case);
         $caseObjects[] = $this->createZaakObject($case, $request['@id'], 'overige', 'verzoek', 'bronverzoek');
 
-
-        foreach($request['submitters'] as $submitter){
-            if($submitter['brp']){
-                $caseObjects[] = $this->createSubmitter($case, $submitter['brp'], 'natuurlijk_persoon',);
-            } elseif($submitter['person'] || $submitter['bsn'] || $submitter['assent']) {
+        foreach ($request['submitters'] as $submitter) {
+            if ($submitter['brp']) {
+                $caseObjects[] = $this->createSubmitter($case, $submitter['brp'], 'natuurlijk_persoon', );
+            } elseif ($submitter['person'] || $submitter['bsn'] || $submitter['assent']) {
                 $caseObjects[] = $this->createSubmitter($case, $this->commonGroundService->cleanUrl(['component' => 'vrc', 'type' => 'submitters', 'id' => $submitter['id']]), 'natuurlijk_persoon');
             } else {
                 $caseObjects[] = $this->createSubmitter($case, $this->commonGroundService->cleanUrl(['component' => 'vrc', 'type' => 'submitters', 'id' => $submitter['id']]), 'niet_natuurlijk_persoon');
@@ -159,8 +163,6 @@ class ConversionService
 
             $request->setStatus('OK');
             $request->setMessage('Verzoek omgezet naar zaak');
-
-
         } catch (Exception $exception) {
             $request->setMessage($exception->getMessage());
             $request->setStatus('FAILED');
@@ -179,7 +181,6 @@ class ConversionService
             unset($requestData['children']);
             $requestData = $this->commonGroundService->updateResource($requestData, ['component'=>'vrc', 'type'=>'requests', 'id'=>$requestData['id']], false, true, false);
             $this->changeStatus($status, $request, $requestData);
-
         } catch (HttpException $exception) {
             $request->setMessage($exception->getMessage());
             $request->setStatus('FAILED');
