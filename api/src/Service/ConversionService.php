@@ -19,7 +19,7 @@ class ConversionService
         $this->parameterBag = $parameterBag;
     }
 
-    public function getStatusType($caseType, string $status)
+    public function getStatusType($caseType, string $status): ?string
     {
         try {
             $statusTypes = $this->commonGroundService->getResourceList(['component'=>'ztc', 'type'=>'statustypen'], ['zaaktype'=>$caseType])['results'];
@@ -35,7 +35,7 @@ class ConversionService
         return null;
     }
 
-    public function changeStatus(string $status, RequestConversion $request, array $requestData)
+    public function changeStatus(string $status, RequestConversion $request, array $requestData): void
     {
         $cases = [];
         foreach ($requestData['cases'] as $case) {
@@ -140,7 +140,7 @@ class ConversionService
         return $caseObjects;
     }
 
-    public function createCase(RequestConversion $request, array $requestData, $status)
+    public function createCase(RequestConversion $request, array $requestData, $status): RequestConversion
     {
         $explode = explode('/', $requestData['requestType']);
         $requestType = $this->commonGroundService->getResource(['component' => 'vtc', 'type' => 'request_types', 'id' => end($explode)]);
@@ -189,15 +189,17 @@ class ConversionService
         return $request;
     }
 
-    public function convert(RequestConversion $request)
+    public function convert(RequestConversion $request): RequestConversion
     {
         $this->commonGroundService->setLocal(null);
         $requestData = $this->commonGroundService->getResource($request->getResource(), [], false);
         if (key_exists('status', $requestData)) {
             switch ($requestData['status']) {
                 case 'submitted':
-                    $request = $this->createCase($request, $requestData, $requestData['status']);
-                    $this->changeStatus($requestData['status'], $request, $requestData);
+                    if($requestData['cases'] == []) {
+                        $request = $this->createCase($request, $requestData, $requestData['status']);
+                        $this->changeStatus($requestData['status'], $request, $requestData);
+                    }
                     break;
                 case 'inProgress':
                 case 'processed':
