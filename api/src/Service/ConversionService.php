@@ -192,7 +192,7 @@ class ConversionService
     public function convert(RequestConversion $request)
     {
         $this->commonGroundService->setLocal(null);
-        $requestData = $this->commonGroundService->getResource($request->getResource());
+        $requestData = $this->commonGroundService->getResource($request->getResource(), [], false);
         if (key_exists('status', $requestData)) {
             switch ($requestData['status']) {
                 case 'submitted':
